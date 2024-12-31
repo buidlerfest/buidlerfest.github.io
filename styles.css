@@ -1,0 +1,29 @@
+body {
+  margin: 40px auto;
+  max-width: 650px;
+  line-height: 1.6;
+  font-size: 18px;
+  color: #444444;
+  padding: 0 10px;
+  background-color: #eeeeee;
+}
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+img {
+  border-radius: 8px;
+  width: 100%;
+}
+a {
+  color: #444444;
+}
+a:hover {
+  color: #666;
+}
+table,
+th,
+td {
+  border: 1px solid black;
+}
