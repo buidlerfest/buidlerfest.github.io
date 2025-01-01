@@ -3,9 +3,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Buidler Fest #2</title>
-    <link href="/styles.css" rel="stylesheet" type="text/css" />
+    <link href="/static/styles.css" rel="stylesheet" type="text/css" />
     <script src="/components/header.js" type="text/javascript" defer></script>
     <script>
+      function formatTitle(name) {
+        return name
+          .replace(".html", "")
+          .replace(/-/g, (match, offset) => (offset < 10 ? match : " "))
+          .replace(/^(.{10})(.*)$/, (match, p1, p2) => {
+            return `${p1} - ${p2.replace(/\b\w/g, (char) =>
+              char.toUpperCase()
+            )}`;
+          });
+      }
+
       async function fetchPosts() {
         const response = await fetch(
           "https://api.github.com/repositories/910522379/contents/posts"
@@ -15,13 +26,10 @@
         const postsElement = document.getElementById("posts");
 
         postsElement.innerHTML = posts
+          .filter((post) => post.name !== "index.html")
           .reverse()
           .map(
-            (post) =>
-              `<a href="/${post.path}">${post.name.replace(
-                ".html",
-                ""
-              )}</a>`
+            (post) => `<a href="/${post.path}">${formatTitle(post.name)}</a>`
           )
           .join("<br />");
       }

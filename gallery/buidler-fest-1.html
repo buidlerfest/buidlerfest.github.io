@@ -3,20 +3,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Buidler Fest #1 Gallery</title>
-    <link href="/styles.css" rel="stylesheet" type="text/css" />
+    <link href="/static/styles.css" rel="stylesheet" type="text/css" />
     <script src="/components/header.js" type="text/javascript" defer></script>
     <script>
       async function fetchImages(url, divId) {
-        const responseDay1Morning = await fetch(url);
-        const images = await responseDay1Morning.json();
-        const divElement = document.getElementById(divId);
-
-        divElement.innerHTML = images
-          .map(
-            (image) =>
-              `<img src="${image.download_url}" alt="${image.name}" style="object-fit: cover; width: 100%; max-height: 200px;" />`
-          )
-          .join("");
+        const response = await fetch(url);
+        const images = await response.json();
+        if (response.ok) {
+          const divElement = document.getElementById(divId);
+          divElement.innerHTML = images
+            .map(
+              (image) =>
+                `<img src="/${image.path}" alt="${image.name}" style="object-fit: cover; width: 100%; max-height: 200px;" />`
+            )
+            .join("");
+        }
       }
 
       fetchImages(
@@ -58,7 +59,13 @@
 
     <a id="a-day1-morning"></a>
     <section>
-      <h2>Day 1 (Morning)</h2>
+      <h2>
+        <a
+          href="https://github.com/buidlerfest/buidlerfest.github.io/tree/main/static/images/buidler-fest-1/day1-morning"
+          target="”_blank”"
+          >Day 1 (Morning)</a
+        >
+      </h2>
       <div
         id="day1-morning"
         style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
@@ -67,7 +74,13 @@
 
     <a id="a-day1-afternoon"></a>
     <section>
-      <h2>Day 1 (Afternoon)</h2>
+      <h2>
+        <a
+          href="https://github.com/buidlerfest/buidlerfest.github.io/tree/main/static/images/buidler-fest-1/day1-afternoon"
+          target="”_blank”"
+          >Day 1 (Afternoon)</a
+        >
+      </h2>
       <div
         id="day1-afternoon"
         style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
@@ -76,7 +89,13 @@
 
     <a id="a-feast"></a>
     <section>
-      <h2>Feast</h2>
+      <h2>
+        <a
+          href="https://github.com/buidlerfest/buidlerfest.github.io/tree/main/static/images/buidler-fest-1/feast"
+          target="”_blank”"
+          >Feast</a
+        >
+      </h2>
       <div
         id="feast"
         style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
@@ -85,7 +104,13 @@
 
     <a id="a-day2"></a>
     <section>
-      <h2>Day 2</h2>
+      <h2>
+        <a
+          href="https://github.com/buidlerfest/buidlerfest.github.io/tree/main/static/images/buidler-fest-1/day2"
+          target="”_blank”"
+          >Day 2</a
+        >
+      </h2>
       <div
         id="day2"
         style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
