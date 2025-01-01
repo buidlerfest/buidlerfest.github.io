@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buidler Fest #1 Gallery</title>
+    <link href="/styles.css" rel="stylesheet" type="text/css" />
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <script>
+      async function fetchImages(url, divId) {
+        const responseDay1Morning = await fetch(url);
+        const images = await responseDay1Morning.json();
+        const divElement = document.getElementById(divId);
+
+        divElement.innerHTML = images
+          .map(
+            (image) =>
+              `<img src="${image.download_url}" alt="${image.name}" style="object-fit: cover; width: 100%; max-height: 200px;" />`
+          )
+          .join("");
+      }
+
+      fetchImages(
+        "https://api.github.com/repositories/910522379/contents/static/images/buidler-fest-1/day1-morning",
+        "day1-morning"
+      );
+
+      fetchImages(
+        "https://api.github.com/repositories/910522379/contents/static/images/buidler-fest-1/day1-afternoon",
+        "day1-afternoon"
+      );
+
+      fetchImages(
+        "https://api.github.com/repositories/910522379/contents/static/images/buidler-fest-1/feast",
+        "feast"
+      );
+
+      fetchImages(
+        "https://api.github.com/repositories/910522379/contents/static/images/buidler-fest-1/day2",
+        "day2"
+      );
+    </script>
+  </head>
+  <body>
+    <header-component></header-component>
+
+    <header>
+      <h1>Buidler Fest #1</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#a-day1-morning">Day 1 (Morning)</a></li>
+        <li><a href="#a-day1-afternoon">Day 1 (Afternoon)</a></li>
+        <li><a href="#a-feast">Feast</a></li>
+        <li><a href="#a-day2">Day 2</a></li>
+      </ul>
+    </nav>
+
+    <a id="a-day1-morning"></a>
+    <section>
+      <h2>Day 1 (Morning)</h2>
+      <div
+        id="day1-morning"
+        style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
+      ></div>
+    </section>
+
+    <a id="a-day1-afternoon"></a>
+    <section>
+      <h2>Day 1 (Afternoon)</h2>
+      <div
+        id="day1-afternoon"
+        style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
+      ></div>
+    </section>
+
+    <a id="a-feast"></a>
+    <section>
+      <h2>Feast</h2>
+      <div
+        id="feast"
+        style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
+      ></div>
+    </section>
+
+    <a id="a-day2"></a>
+    <section>
+      <h2>Day 2</h2>
+      <div
+        id="day2"
+        style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
+      ></div>
+    </section>
+  </body>
+</html>
