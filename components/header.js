@@ -20,6 +20,7 @@ class Header extends HTMLElement {
           <a href="/posts">Posts</a>
           <a href="/gallery">Gallery</a>
           <a href="/register">Register</a>
+          <a href="/register/speakers">Call for Speaker</a>
         </nav>
       </header>
     `;
