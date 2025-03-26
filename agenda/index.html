@@ -1,6 +1,180 @@
 <html>
   <head>
     <script src="/components/header.js" type="text/javascript" defer></script>
+    <!-- Font Awesome for GitHub icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      /* Container for each speaker that holds the name and the hidden details */
+      .speaker-container {
+        position: relative;
+        display: block;
+        padding: 5px 10px;
+        margin: 2px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+      }
+      /* The hover menu that shows additional information about the speaker */
+      .hover-menu {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: -10px;  /* Adjusted to create overlap */
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 15px;  /* Increased padding */
+        border-radius: 5px;
+        width: 250px;
+        z-index: 100;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        transition: opacity 0.3s;  /* Smooth transition effect */
+        opacity: 0;
+        pointer-events: none;  /* Initially prevent interaction */
+        margin-left: 5px;  /* Small gap from speaker */
+      }
+      
+      /* Add a buffer zone with pseudo-element */
+      .speaker-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 20px;  /* Buffer width */
+        height: 100%;
+        z-index: 99;
+      }
+      
+      /* Display the hover menu when hovering over the speaker container */
+      .speaker-container:hover .hover-menu {
+        display: block;
+        opacity: 1;
+        pointer-events: auto;  /* Allow interaction */
+      }
+      
+      /* Keep hover menu visible when hovering over the menu itself */
+      .hover-menu:hover {
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      
+      /* Agenda table styling */
+      .agenda-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      
+      .agenda-table th {
+        background-color: #333;
+        color: white;
+        text-align: left;
+        padding: 12px;
+      }
+      
+      .agenda-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        vertical-align: top;
+      }
+      
+      .agenda-table tr:nth-child(even) {
+        background-color: #f8f8f8;
+      }
+      
+      .agenda-table tr:hover {
+        background-color: #f1f1f1;
+      }
+      
+      /* Column width settings */
+      .time-column {
+        width: 10%;
+      }
+      
+      .room-column {
+        width: 30%;
+      }
+      
+      /* Session title styling */
+      .session-title {
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+      }
+      
+      /* GitHub link styling */
+      .github-link {
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+        text-decoration: none;
+        color: #333;
+      }
+      
+      .github-link i {
+        margin-right: 5px;
+        font-size: 16px;
+      }
+      
+      .github-link:hover {
+        text-decoration: underline;
+        color: #0366d6;
+      }
+      
+      /* LinkedIn link styling */
+      .linkedin-link {
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+        padding: 6px 10px;
+        text-decoration: none;
+        color: #333;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+      
+      .linkedin-link i {
+        margin-right: 8px;
+        font-size: 16px;
+        color: #0077b5;
+      }
+      
+      .linkedin-link:hover {
+        text-decoration: none;
+        background-color: #e6f0ff;
+        color: #0077b5;
+        transform: translateY(-1px);
+      }
+      
+      /* X (Twitter) link styling */
+      .x-link {
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+        padding: 6px 10px;
+        text-decoration: none;
+        color: #333;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+      
+      .x-link i {
+        margin-right: 8px;
+        font-size: 16px;
+        color: #000;
+      }
+      
+      .x-link:hover {
+        text-decoration: none;
+        background-color: #e6e6e6;
+        color: #000;
+        transform: translateY(-1px);
+      }
+    </style>
   </head>
   <body>
     <header-component></header-component>
@@ -11,147 +185,377 @@
 
     <section>
       <h2>Day 1 :: Panels & Workshops</h2>
-
       <p>The first day will be dedicated to panel discussions and workshops.</p>
 
       <h3>Panel Discussions</h3>
 
-      <table style="width: 100%">
+      <table class="agenda-table" cellspacing="0" cellpadding="5">
         <thead>
           <tr>
-            <th>Time</th>
-            <th>Session</th>
-            <th>Speakers</th>
+            <th class="time-column">Time</th>
+            <th class="room-column">Room 1</th>
+            <th class="room-column">Room 2</th>
+            <th class="room-column">Room 3</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>09:00</td>
-            <td>Opening keynote + info + ice breaker</td>
+            <td>
+              <span class="session-title">Opening keynote + info + ice breaker</span>
+              <div class="speaker-container">
+                Ha
+                <div class="hover-menu">
+                  <a href="https://www.linkedin.com/in/nguyen-thi-ha-45b108233/" class="linkedin-link" target="_blank">
+                    <i class="fab fa-linkedin"></i> LinkedIn Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Mie
+                <div class="hover-menu">
+                  <a href="#" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Arnaud
+                <div class="hover-menu">
+                  <a href="https://github.com/abailly" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Matthias
+                <div class="hover-menu">
+                  <a href="https://github.com/KtorZ" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td>09:30</td>
             <td>
-              Panel Discussion 1 - Real-world use cases and Cardano adoption
+              <span class="session-title">Panel Discussion 1 - Real-world use cases and Cardano adoption</span>
+              <div class="speaker-container">
+                Andrew Westberg (mod)
+                <div class="hover-menu">
+                  <a href="https://github.com/AndrewWestberg" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Matteo (FluidTokens, Finest Tokenize)
+                <div class="hover-menu">
+                  <a href="https://github.com/matteocoppola" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Lorenzo Bruno (govtools)
+                <div class="hover-menu">
+                  <a href="https://github.com/l-br1" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Guillermo (Book.io)
+                <div class="hover-menu">
+                  <a href="https://github.com/gmoratorio" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Seria Yun (Socious)
+                <div class="hover-menu">
+                  <a href="https://x.com/seira_yun" class="x-link" target="_blank">
+                    <i class="fab fa-x-twitter"></i> X Profile
+                  </a>
+                </div>
+              </div>
             </td>
             <td>
-              Andrew<br />
-              Matteo<br />
-              Lorenzo<br />
-              Guillermo<br />
-              Seria<br />
+              <span class="session-title">Bullet - account abstraction by looking forward</span>
+              <div class="speaker-container">
+                Kasey White
+                <div class="hover-menu">
+                  <a href="https://github.com/MicroProofs" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="session-title">Scalus – The Cardano DevXperience You Dreamed About!</span>
+              <div class="speaker-container">
+                Alex Nemish
+                <div class="hover-menu">
+                  <a href="https://github.com/NAU" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td>10:15</td>
-            <td>Tea Break</td>
+            <td>
+              <span class="session-title">Tea Break</span>
+            </td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td>10:45</td>
-            <td>Panel Discussion 2 - Toolings</td>
             <td>
-              James<br />
-              Bora<br />
-              Clark<br />
-              Jingles<br />
-              Angel<br />
+              <span class="session-title">Panel Discussion 2 - Toolings</span>
+              <div class="speaker-container">
+                James Dunseith (mod)
+                <div class="hover-menu">
+                  <a href="https://github.com/workshop-maybe" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Bora (Lucid Evolution)
+                <div class="hover-menu">
+                  <a href="https://github.com/0xBora" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Clark (Chrysalis)
+                <div class="hover-menu">
+                  <a href="#" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Jingles (Mesh)
+                <div class="hover-menu">
+                  <a href="https://github.com/jinglescode" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Angel Castillo (cardano-sdk)
+                <div class="hover-menu">
+                  <a href="https://github.com/AngelCastilloB" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="session-title">Midnight Workshop - building privacy Dapps</span>
+              <div class="speaker-container">
+                Erick Romero
+                <div class="hover-menu">
+                  <a href="https://github.com/ErickRomeroDev" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="session-title">Crosschain multisig on Cardano, a demo</span>
+              <div class="speaker-container">
+                Raul
+                <div class="hover-menu">
+                  <a href="https://github.com/elRaulito" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td>11:30</td>
-            <td>Happy Hacky Challenges Intro</td>
+            <td>
+              <span class="session-title">Happy Hacky Challenges Intro</span>
+              <div class="speaker-container">
+                Darlisa Consoni
+                <div class="hover-menu">
+                  <a href="https://www.linkedin.com/in/darlisa-giusti-consoni/?locale=en_US" class="linkedin-link" target="_blank">
+                    <i class="fab fa-linkedin"></i> LinkedIn Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td>12:00</td>
-            <td>Lunch</td>
+            <td>
+              <span class="session-title">Lunch</span>
+            </td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td>14:00</td>
-            <td>Panel Discussion 3 - Interoperability</td>
             <td>
-              Adam<br />
-              Raul<br />
-              Erick<br />
-              Do Tran<br />
+              <span class="session-title">Panel Discussion 3 - Interoperability</span>
+              <div class="speaker-container">
+                Adam (mod)
+                <div class="hover-menu">
+                  <a href="https://github.com/Crypto2099" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Raul (FluidTokens, Sundial)
+                <div class="hover-menu">
+                  <a href="https://github.com/elRaulito" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Erick (Midnight, Eddalabs, MeshJS)
+                <div class="hover-menu">
+                  <a href="https://github.com/ErickRomeroDev" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Do Tran Linh (danogo)
+                <div class="hover-menu">
+                  <a href="https://x.com/danogo_2023" class="x-link" target="_blank">
+                    <i class="fab fa-x-twitter"></i> X Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="session-title">Chrysalis - a .NET Serialization Library for Cardano, and Argus - a Cardano Block Chain Indexer for .NET</span>
+              <div class="speaker-container">
+                Rory Clark Manuelle Alesna
+                <div class="hover-menu">
+                  <a href="https://github.com/mercurial" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="session-title">Hydra workshop</span>
+              <div class="speaker-container">
+                Tsz Wai
+                <div class="hover-menu">
+                  <a href="https://github.com/twwu123" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Tony Thanh
+                <div class="hover-menu">
+                  <a href="https://x.com/tony_thanh_" class="x-link" target="_blank">
+                    <i class="fab fa-x-twitter"></i> X Profile
+                  </a>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td>14:45</td>
-            <td>Tea Break</td>
+            <td>
+              <span class="session-title">Tea Break</span>
+            </td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td>15:15</td>
-            <td>Panel Discussion 4 - Scaling</td>
             <td>
-              Adam<br />
-              Hinson<br />
-              Pi<br />
-              George<br />
-              Waalge<br />
+              <span class="session-title">Panel Discussion 4 - Scaling</span>
+              <div class="speaker-container">
+                Adam (mod)
+                <div class="hover-menu">
+                  <a href="https://github.com/Crypto2099" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Hinson (hydra)
+                <div class="hover-menu">
+                  <a href="https://github.com/HinsonSIDAN" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Pi Laningham (GummiWorm/Amaru/SundaeSwap)
+                <div class="hover-menu">
+                  <a href="https://github.com/Quantumplation" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                George Flerovsky (Midgard and Hydrozoa)
+                <div class="hover-menu">
+                  <a href="https://github.com/GeorgeFlerovsky" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+              <div class="speaker-container">
+                Waalge (Cardano Lightning)
+                <div class="hover-menu">
+                  <a href="https://github.com/waalge" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="session-title">Testing smart-contracts via chaos engineering.</span>
+              <div class="speaker-container">
+                Matthias Benkort
+                <div class="hover-menu">
+                  <a href="https://github.com/KtorZ" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Profile
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              
             </td>
           </tr>
           <tr>
             <td>16:00</td>
-            <td>Announcements + feedback + closing</td>
+            <td>
+              <span class="session-title">Announcements + feedback + closing</span>
+            </td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
-
-      <p>We in the the proceess of finalizing panelists and moderators.</p>
-    </section>
-
-    <!-- <section>
-      <h3>Workshops</h3>
-
-      <p>
-        The workshops will be held in parallel to the panel discussions. The
-        workshops will be hands-on and interactive.
-      </p>
-
-      <table style="width: 100%">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Workshop</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td rowspan="2">09:30</td>
-            <td>Bullet - Account abstraction by looking forward</td>
-          </tr>
-          <tr>
-            <td>Scalus - The Cardano DevXperience you dreamed about</td>
-          </tr>
-          <tr>
-            <td rowspan="2">10:45</td>
-            <td>Midnight workshop - Building privacy apps</td>
-          </tr>
-          <tr>
-            <td>Cross-chain multisig on Cardano - a demo</td>
-          </tr>
-          <tr>
-            <td rowspan="2">14:00</td>
-            <td>Chrysalis and Argus - .NET Serialization Lib and Indexer</td>
-          </tr>
-          <tr>
-            <td>Hydra workshop - Building scaling apps</td>
-          </tr>
-          <tr>
-            <td rowspan="2">15:15</td>
-            <td>Testing smart-contracts via chaos engineering</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        We are currently in the process of finalizing the workshops and will
-        update this page as soon as we have more information.
-      </p>
-    </section> -->
 
     <section>
-      <h2>Both Days :: Unconference</h2>
+      <h2>Both Days :: Freestyle</h2>
       <p>
         We have deliberately chosen to keep the agenda light and leave room for
         an Unconference. We believe that the best conversations happen in the
@@ -166,9 +570,7 @@
       <p>
         For more information, read about
         <a href="/posts/2024-01-10-open-space"
-          >The Power Of Open-Space Technology</a
-        >.
+          >The Power Of Open-Space Technology</a>
       </p>
     </section>
-  </body>
-</html>
+
