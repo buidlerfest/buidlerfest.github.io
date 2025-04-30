@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <title>Buidler Fest #1 Gallery</title>
+    <script>
+      async function fetchImages(url, divId) {
+        const response = await fetch(url);
+        const images = await response.json();
+        if (response.ok) {
+          const divElement = document.getElementById(divId);
+          divElement.innerHTML = images
+            .map(
+              (image) =>
+                `<img src="/${image.path}" alt="${image.name}" style="object-fit: cover; width: 100%; max-height: 200px;" />`
+            )
+            .join("");
+        }
+      }
+
+      fetchImages(
+        "https://api.github.com/repositories/910522379/contents/static/images/buidler-fest-2/day1",
+        "day1-afternoon"
+      );
+
+      fetchImages(
+        "https://api.github.com/repositories/910522379/contents/static/images/buidler-fest-2/day2",
+        "day2"
+      );
+    </script>
+  </head>
+  <body>
+    <header-component></header-component>
+
+    <header>
+      <h1>Buidler Fest #2</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#a-day1">Day 1</a></li>
+        <li><a href="#a-day2">Day 2</a></li>
+      </ul>
+    </nav>
+
+    <a id="a-day1"></a>
+    <section>
+      <h2>
+        <a
+          href="https://github.com/buidlerfest/buidlerfest.github.io/tree/main/static/images/buidler-fest-2/day1"
+          target="”_blank”"
+          >Day 1</a
+        >
+      </h2>
+      <div
+        id="day1"
+        style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
+      ></div>
+    </section>
+
+    <a id="a-day2"></a>
+    <section>
+      <h2>
+        <a
+          href="https://github.com/buidlerfest/buidlerfest.github.io/tree/main/static/images/buidler-fest-2/day2"
+          target="”_blank”"
+          >Day 2</a
+        >
+      </h2>
+      <div
+        id="day2"
+        style="display: grid; gap: 50px 50px; grid-template-columns: auto auto"
+      ></div>
+    </section>
+  </body>
+</html>
