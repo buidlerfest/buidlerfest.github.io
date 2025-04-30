@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Testimonials - Buidler Fest #2</title>
+    <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/static/favicon-32x32-dark.ico" type="image/x-icon" />
+    <style>
+      body {
+        background: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+      }
+      
+      h1 {
+        margin: 20px 0;
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        width: 100%;
+      }
+      
+      .tweet-card {
+        display: contents;
+      }
+      
+      .tweet-card a {
+        display: block;
+        width: 100%;
+      }
+      
+      .tweet-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+
+      @media (max-width: 768px) {
+        .testimonials-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        
+        body {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header-component></header-component>
+    <script src="/components/header.js"></script>
+
+    <h1>Testimonials</h1>
+    
+    <div class="testimonials-grid">
+      <div class="tweet-card">
+        <a href="https://x.com/KeystoneWallet/status/1916839818572575137" target="_blank">
+          <img src="/static/images/testimonials/keystone.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/NucastIO/status/1916915443022832056" target="_blank">
+          <img src="/static/images/testimonials/nucast-bf.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/USDMOfficial/status/1916818882964160806" target="_blank">
+          <img src="/static/images/testimonials/usdm.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/jamesdunseith/status/1916345007071760864" target="_blank">
+          <img src="/static/images/testimonials/andamio.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/ErickRomeroEdda/status/1916462239386910895" target="_blank">
+          <img src="/static/images/testimonials/erick.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/longminswap/status/1916404056903585908" target="_blank">
+          <img src="/static/images/testimonials/longmin.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/newt6611/status/1916482710237053367" target="_blank">
+          <img src="/static/images/testimonials/newtt.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/satran004/status/1916350798361202830" target="_blank">
+          <img src="/static/images/testimonials/satya.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/suyebom/status/1916471321732825427" target="_blank">
+          <img src="/static/images/testimonials/suyebom.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/clarkalesna/status/1916457631906173175" target="_blank">
+          <img src="/static/images/testimonials/clarkalesna.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/jinglescode/status/1915771563800248710" target="_blank">
+          <img src="/static/images/testimonials/jingles.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/sidan_lab/status/1917113813729673675" target="_blank">
+          <img src="/static/images/testimonials/sidanwrap.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+      <div class="tweet-card">
+        <a href="https://x.com/Cardano/status/1915844646741172534" target="_blank">
+          <img src="/static/images/testimonials/cardanocommunity.png" alt="Tweet screenshot" />
+        </a>
+      </div>
+    </div>
+  </body>
+</html>   
