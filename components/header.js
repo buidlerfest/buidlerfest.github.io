@@ -18,7 +18,7 @@ class Header extends HTMLElement {
           <a href="/agenda">Agenda</a>
           <a href="/posts">Posts</a>
           <a href="/gallery">Gallery</a>
-          <a href="/register">Register</a>
+          <a href="/testimonials">Testimonials</a>
         </nav>
       </header>
     `;
