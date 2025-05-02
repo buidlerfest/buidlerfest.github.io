@@ -1,7 +1,7 @@
 <html>
   <head>
     <script src="/components/header.js" type="text/javascript" defer></script>
-    <title>Buidler Fest #1 Gallery</title>
+    <title>Buidler Fest #2 Gallery</title>
     <script>
       async function fetchImages(url, divId) {
         const response = await fetch(url);
@@ -19,7 +19,7 @@
 
       fetchImages(
         "https://api.github.com/repositories/910522379/contents/static/images/buidler-fest-2/day1",
-        "day1-afternoon"
+        "day1"
       );
 
       fetchImages(
