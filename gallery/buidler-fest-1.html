@@ -11,7 +11,7 @@
           divElement.innerHTML = images
             .map(
               (image) =>
-                `<img src="/${image.path}" alt="${image.name}" style="object-fit: cover; width: 100%; max-height: 200px;" />`
+                `<a href="/${image.path}" target="_blank"><img src="/${image.path}" alt="${image.name}" style="object-fit: cover; width: 100%; max-height: 200px;" /></a>`
             )
             .join("");
         }
