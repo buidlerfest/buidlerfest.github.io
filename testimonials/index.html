@@ -10,207 +10,720 @@
       href="/static/favicon-32x32-dark.ico"
       type="image/x-icon"
     />
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <style>
+      /* Reset and base styles */
       body {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
         background: #f5f5f5;
-        margin: 0;
-        padding: 20px;
+        width: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
 
+      /* Modern container styles */
+      .page-container {
+        width: 100%;
+        background: linear-gradient(to bottom, #f5f5f5, #ffffff);
+      }
+
+      .content-wrapper {
+        width: 100%;
+        max-width: 1800px;
+        margin: 0 auto;
+        padding: 40px;
+        box-sizing: border-box;
+      }
+
+      /* Typography */
       h1 {
-        margin: 20px 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 1rem;
+        letter-spacing: -0.02em;
       }
 
+      .header-link {
+        display: inline-block;
+        margin: 0 0 2rem;
+        color: #0066cc;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        background: rgba(0, 102, 204, 0.1);
+        border-radius: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .header-link:hover {
+        background: rgba(0, 102, 204, 0.15);
+        transform: translateY(-1px);
+      }
+
+      /* Minimal layout that just lets screenshots be screenshots */
       .testimonials-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
         width: 100%;
       }
 
+      /* Grid sizing */
+      .grid-sizer,
       .tweet-card {
-        display: contents;
+        width: calc(25% - 18px);
       }
 
-      .tweet-card a {
-        display: block;
-        width: 100%;
+      .gutter-sizer {
+        width: 24px;
+      }
+
+      /* Cards */
+      .tweet-card {
+        margin-bottom: 24px;
+        float: left;
       }
 
       .tweet-card img {
-        width: 100%;
-        height: auto;
         display: block;
-        margin: 0;
-        padding: 0;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      /* Responsive */
+      @media (max-width: 1400px) {
+        .grid-sizer,
+        .tweet-card {
+          width: calc(33.333% - 16px);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .grid-sizer,
+        .tweet-card {
+          width: calc(50% - 12px);
+        }
+        .gutter-sizer {
+          width: 20px;
+        }
+        .tweet-card {
+          margin-bottom: 20px;
+        }
       }
 
       @media (max-width: 768px) {
-        .testimonials-grid {
+        .content-wrapper {
+          padding: 20px;
+        }
+        .grid-sizer,
+        .tweet-card {
+          width: 100%;
+        }
+        .gutter-sizer {
+          width: 0;
+        }
+        .tweet-card {
+          margin-bottom: 16px;
+        }
+      }
+
+      /* Section divider */
+      .section-divider {
+        margin: 60px 0;
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, 
+          rgba(0, 0, 0, 0.05), 
+          rgba(0, 0, 0, 0.1), 
+          rgba(0, 0, 0, 0.05));
+      }
+
+      /* Video section styles */
+      .video-interviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 24px;
+        width: 100%;
+        margin-top: 40px;
+      }
+
+      .video-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateZ(0);  /* Enable GPU acceleration */
+      }
+
+      .video-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        background: #f0f0f0;
+      }
+
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .video-info {
+        padding: 16px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      .video-card:hover .video-info {
+        background-color: #f8f9fa;
+      }
+
+      .video-info h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        transition: color 0.3s ease;
+      }
+
+      .video-card:hover .video-info h3 {
+        color: #0066cc;
+      }
+
+      @media (max-width: 1024px) {
+        .video-interviews-grid {
+          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+          gap: 20px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .video-interviews-grid {
           grid-template-columns: 1fr;
           gap: 16px;
         }
+      }
 
-        body {
-          padding: 16px;
+      /* Loading animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .tweet-card {
+        animation: fadeInUp 0.5s ease-out backwards;
+      }
+
+      .tweet-card:nth-child(n) {
+        animation-delay: calc(0.1s * var(--card-index, 0));
+      }
+
+      /* Survey feedback section styles */
+      .survey-feedback {
+        margin-top: 40px;
+        width: 100%;
+      }
+
+      .feedback-section {
+        margin-bottom: 60px;
+      }
+
+      .feedback-section h3 {
+        font-size: 1.4rem;
+        color: #1a1a1a;
+        margin: 0 0 24px 0;
+        font-weight: 600;
+      }
+
+      .feedback-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+      }
+
+      .feedback-card {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateZ(0);  /* Enable GPU acceleration */
+        cursor: default;  /* Show it's interactive */
+      }
+
+      .feedback-card:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+      }
+
+      .feedback-card p {
+        margin: 0;
+        color: #333;
+        line-height: 1.6;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .feedback-card:hover p {
+        color: #1a1a1a;
+      }
+
+      /* Add subtle highlight effect on hover */
+      .feedback-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 12px;
+        background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 70%);
+        background-size: 200% 100%;
+        background-position-x: 180%;
+        pointer-events: none;
+        transition: background-position-x 0.8s ease;
+        opacity: 0;
+      }
+
+      .feedback-card:hover::after {
+        background-position-x: -180%;
+        opacity: 1;
+      }
+
+      /* Ensure feedback card has relative positioning for the highlight effect */
+      .feedback-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Update section dividers to be consistent */
+      .section-divider {
+        margin: 60px 0;
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right,
+          rgba(0, 0, 0, 0.05),
+          rgba(0, 0, 0, 0.1),
+          rgba(0, 0, 0, 0.05));
+        clear: both;
+      }
+
+      /* Consistent heading styles */
+      h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 1.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      @media (max-width: 768px) {
+        h2 {
+          font-size: 1.5rem;
+          margin: 0 0 1rem;
+        }
+        
+        .survey-feedback {
+          margin-top: 32px;
+        }
+
+        .section-divider {
+          margin: 40px 0;
         }
       }
     </style>
   </head>
   <body>
-    <header-component></header-component>
-    <script src="/components/header.js"></script>
+    <div class="page-container">
+      <header-component></header-component>
+      <script src="/components/header.js"></script>
 
-    <h1>Testimonials</h1>
+      <div class="content-wrapper">
+        <h1>Testimonials</h1>
+        <a href="https://x.com/search?q=buidlerfest%232025&src=typed_query" class="header-link">
+          See all the posts on X
+        </a>
 
-    <a href="https://x.com/search?q=buidlerfest%232025&src=typed_query">
-      <h2>See all the posts on X</h2>
-    </a>
+        <div class="testimonials-grid">
+          <div class="grid-sizer"></div>
+          <div class="gutter-sizer"></div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/KeystoneWallet/status/1916839818572575137"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/keystone.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/NucastIO/status/1916915443022832056"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/nucast-bf.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/USDMOfficial/status/1916818882964160806"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/usdm.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/jamesdunseith/status/1916345007071760864"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/andamio.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/ErickRomeroEdda/status/1916462239386910895"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/erick.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/longminswap/status/1916404056903585908"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/longmin.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/newt6611/status/1916482710237053367"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/newtt.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/satran004/status/1916350798361202830"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/satya.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/suyebom/status/1916471321732825427"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/suyebom.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/clarkalesna/status/1916457631906173175"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/clarkalesna.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/jinglescode/status/1915771563800248710"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/jingles.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/sidan_lab/status/1917113813729673675"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/sidanwrap.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+          <div class="tweet-card">
+            <a
+              href="https://x.com/Cardano/status/1915844646741172534"
+              target="_blank"
+            >
+              <img
+                src="/static/images/testimonials/cardanocommunity.png"
+                alt="Tweet screenshot"
+              />
+            </a>
+          </div>
+        </div>
 
-    <div class="testimonials-grid">
-      <div class="tweet-card">
-        <a
-          href="https://x.com/KeystoneWallet/status/1916839818572575137"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/keystone.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/NucastIO/status/1916915443022832056"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/nucast-bf.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/USDMOfficial/status/1916818882964160806"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/usdm.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/jamesdunseith/status/1916345007071760864"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/andamio.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/ErickRomeroEdda/status/1916462239386910895"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/erick.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/longminswap/status/1916404056903585908"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/longmin.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/newt6611/status/1916482710237053367"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/newtt.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/satran004/status/1916350798361202830"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/satya.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/suyebom/status/1916471321732825427"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/suyebom.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/clarkalesna/status/1916457631906173175"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/clarkalesna.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/jinglescode/status/1915771563800248710"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/jingles.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/sidan_lab/status/1917113813729673675"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/sidanwrap.png"
-            alt="Tweet screenshot"
-          />
-        </a>
-      </div>
-      <div class="tweet-card">
-        <a
-          href="https://x.com/Cardano/status/1915844646741172534"
-          target="_blank"
-        >
-          <img
-            src="/static/images/testimonials/cardanocommunity.png"
-            alt="Tweet screenshot"
-          />
-        </a>
+        <hr class="section-divider">
+
+        <h2>Video Interviews</h2>
+        <div class="video-interviews-grid">
+          <!-- Video 1 -->
+          <div class="video-card">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/F3zbJkEirT4"
+                title="Tien"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <h3>Tien</h3>
+            </div>
+          </div>
+
+          <!-- Video 2 -->
+          <div class="video-card">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/EeDrmlWj640"
+                title="James"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <h3>James</h3>
+            </div>
+          </div>
+
+          <!-- Video 3 -->
+          <div class="video-card">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/PN1eMexSsO4"
+                title="Lorenzo"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <h3>Lorenzo</h3>
+            </div>
+          </div>
+
+          <!-- Video 4 -->
+          <div class="video-card">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/BsyTnnqw6ag"
+                title="Nicolas"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <h3>Nicolas</h3>
+            </div>
+          </div>
+
+          <!-- Video 5 -->
+          <div class="video-card">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/RwRG0xYaTaM"
+                title="Taina"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <h3>Taina</h3>
+            </div>
+          </div>
+
+          <!-- Video 6 -->
+          <div class="video-card">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/s-dbtXywpcE"
+                title="Clark"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <h3>Clark</h3>
+            </div>
+          </div>
+
+          <!-- Video 7 -->
+          <div class="video-card">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/cuWi9EehYIM"
+                title="Angel & TW"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <h3>Angel & TW</h3>
+            </div>
+          </div>
+
+          <!-- Video 8 -->
+          <div class="video-card">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/fA0q0_MXCIM"
+                title="Andrew"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-info">
+              <h3>Andrew</h3>
+            </div>
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <h2>Survey Feedback</h2>
+        <div class="survey-feedback">
+          <!-- Positive Feedback Section -->
+          <div class="feedback-section">
+            <h3>What's good and you want to continue to see in the next Buidler Fest?</h3>
+            <div class="feedback-grid">
+              <div class="feedback-card">
+                <p>"The networking opportunities and the chance to meet people from different projects in person were invaluable."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"Hands-on workshops and technical deep dives helped me understand complex topics better."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"The mix of both technical and business-focused sessions provided a well-rounded experience."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"Community building activities and social events created strong connections."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"The quality of speakers and their willingness to engage with attendees was exceptional."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"Interactive sessions and live coding demonstrations were particularly helpful."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"The venue and organization made it easy to focus on learning and networking."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"The diversity of topics covered gave a great overview of the ecosystem."</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Improvement Feedback Section -->
+          <div class="feedback-section">
+            <h3>What can be improved for the next Buidler Fest?</h3>
+            <div class="feedback-grid">
+              <div class="feedback-card">
+                <p>"More breakout sessions for different skill levels would be helpful."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"Additional time for Q&A after technical presentations would be valuable."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"Consider adding more practical workshops with hands-on coding sessions."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"Would love to see more advanced technical deep-dive sessions."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"More structured networking opportunities could enhance connections."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"Consider recording sessions for later reference and sharing."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"Additional focus on emerging trends and future technology directions."</p>
+              </div>
+              <div class="feedback-card">
+                <p>"More interactive panel discussions would add value."</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <script>
+      // Initialize Masonry after all images are loaded
+      var grid = document.querySelector('.testimonials-grid');
+      imagesLoaded(grid, function() {
+        new Masonry(grid, {
+          itemSelector: '.tweet-card',
+          columnWidth: '.grid-sizer',
+          gutter: '.gutter-sizer',
+          percentPosition: true,
+          horizontalOrder: true
+        });
+      });
+    </script>
   </body>
 </html>
